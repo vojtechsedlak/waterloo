@@ -62,7 +62,9 @@
 		text-align:center;
 		width:80%;
 		padding:20px;
-		margin:auto;
+		margin-top:30px;
+		margin-left:auto;
+		margin-right:auto;
 	}
 	.overlay {
 		height:100%;
@@ -103,8 +105,8 @@
 				</div>
 				<div class="row">
 					<div class="col intro">
-						<h1>Do you live on a floodplain?</h1>
-						<p> Thousands of Canadians live on land that may be at risk of flooding. As climate impacts continue to worse, floods are likely to become more common. </p>
+						<h1>Do you live in a flood zone?</h1>
+						<p> Thousands of Canadians live on land that may be at risk of flooding. As climate impacts continue to worsen, floods are likely to become more common. </p>
 						<p> <b>Use our tool to find out if you live on a floodplain and what you can do to prepare for the worseing impacts of climate change.</b></p>
 					</div>
 				</div>
@@ -112,6 +114,7 @@
 					<div class="col geocoder-wrapper">
 						<h3>Type in your address to get started:</h3>
 						<div id="geocoder" class="geocoder"></div>
+						<p style="padding-top:5px;"><i>Our tool currently maps flood zones in the Waterloo region (e.g. postal codes starting with N2)</i></p>
 					</div>
 				</div>
 			</div>
@@ -166,7 +169,7 @@
     });
 
 	function scrollPage(e) {
-		console.log(e.result.context[4]['text_en-US']);
+		console.log(e.result.context);
 		document.getElementById('tool').style.height="75vh";
 		document.getElementById('tool').scrollIntoView();
 		document.getElementById('cta').style.display="block";
