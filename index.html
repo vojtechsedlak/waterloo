@@ -59,7 +59,7 @@
 	#form-wrapper {
 		background:rgba(2,119,189,1);
 		color:#fff;
-		text-align:center;
+		text-align:left;
 		width:80%;
 		padding:20px;
 		margin-top:30px;
@@ -75,15 +75,16 @@
 	}
 	#cta {
 		position:relative;
-		top:-100px;
+		top:-150px;
 		background:rgba(255,255,255,1);
 		border-radius:5px;
 		color:#000;
 		margin-left:10%;
 		margin-right:10%;
 		padding:50px;
-		text-align:center;
+		text-align:left;
 		display:none;
+		z-index:9999;
 
 	}
 	.form-text {
@@ -126,22 +127,32 @@
 				<div class="col map-wrapper">
 					<div id="map"></div>
 					<div id="cta">
-						<h2>We can help you prepare for the worsening impacts of climate change</h2>
-						<p>My Climate Plan is a project to make sure we all know what our households face, have personal help to prepare, and get ongoing benefits to act. Together, we will build strong, climate safe communities.</p>
-						<div id="form-wrapper">
-							<h3>Sign up to learn more</h3>
-							<form>
-								<div class="mb-3">
-									<label for="exampleInputPassword1" class="form-label">Your Name</label>
-									<input type="text" class="form-control" id="name">
+						<div class="container">
+							<div class="row">
+								<div class="col lg-6 md-12 sm-12">
+									<h2>We can help you prepare for the worsening impacts of climate change</h2>
+									<p>My Climate Plan is a project to make sure we all know what our households face, have personal help to prepare, and get ongoing benefits to act. Together, we will build strong, climate safe communities.</p>
+									<p><b>In our founding year, we need your help to get this right. Our goal is to hear from 5,000 people from all walks of life so we can create the program you need. Can you take a few minutes to give your input now?</b></p>
+									<a href="https://qc8txpdibab.typeform.com/myclimateplan?utm_source=waterloo"><button class="btn btn-danger">Click here to take our founding year survey</button></a>
 								</div>
-								<div class="mb-3">
-								<label for="exampleInputEmail1" class="form-label">Email address</label>
-								<input type="email" class="form-control" id="email" aria-describedby="emailHelp">
-								<div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+								<div class="col lg-6 md-12 sm-12">
+									<div id="form-wrapper">
+										<h3>Sign up to learn more</h3>
+										<form>
+											<div class="mb-3">
+												<label for="exampleInputPassword1" class="form-label">Your Name</label>
+												<input type="text" class="form-control" id="name">
+											</div>
+											<div class="mb-3">
+											<label for="exampleInputEmail1" class="form-label">Email address</label>
+											<input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+											<div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+											</div>
+											<button type="submit" class="btn btn-light">Submit</button>
+										</form>
+									</div>
 								</div>
-								<button type="submit" class="btn btn-light">Submit</button>
-							</form>
+							</div>
 						</div>
 					</div>
 				</div>
