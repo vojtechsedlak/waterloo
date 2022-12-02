@@ -2,42 +2,178 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Add a geocoder</title>
+<title>Do you live on a floodplain?</title>
+<link rel="icon" href="https://i0.wp.com/myclimateplan.co/wp-content/uploads/2022/10/cropped-circle-social.png?fit=32%2C32&#038;ssl=1" sizes="32x32" />
+<link rel="icon" href="https://i0.wp.com/myclimateplan.co/wp-content/uploads/2022/10/cropped-circle-social.png?fit=192%2C192&#038;ssl=1" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://i0.wp.com/myclimateplan.co/wp-content/uploads/2022/10/cropped-circle-social.png?fit=180%2C180&#038;ssl=1" />
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.css" rel="stylesheet">
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
 <style>
-body { margin: 0; padding: 0; }
-#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+    @font-face {
+		font-family: 'Raleway';
+		font-style: normal;
+		font-weight: 700;
+		font-display: swap;
+		src: url("/assets/Raleway/Raleway-VariableFont_wght.ttf") format('ttf');
+	}
+	body { margin: 0; padding: 0; color:#fff; background:rgba(2,119,189,1)}
+    .geocoder {
+        width: 50%;
+        margin:auto;
+    }
+	.geocoder-wrapper {
+		margin-top:50px;
+	}
+    .mapboxgl-ctrl-geocoder {
+        min-width: 100%;
+    }
+    #tool {
+		height:0px;
+		background-color:rgba(2,119,189,1);
+	}
+	#map {
+        height:75vh;
+		width:100%;
+		min-width:500px;
+    }
+	.intro {
+		padding-top:50px;
+		max-width:500px;
+	}
+    .logo img {
+        width:125px;
+        float:left;
+        padding-top:50px;
+    }
+	.hero {
+		background-image:url('hero.jpg');
+		background-position:top;
+		background-size:cover;
+		height:100vh;
+	}
+	#form-wrapper {
+		background:rgba(2,119,189,1);
+		color:#fff;
+		text-align:center;
+		width:80%;
+		padding:20px;
+		margin:auto;
+	}
+	.overlay {
+		height:100%;
+		background:linear-gradient(rgba(2,119,189,0.6),rgba(2,119,189,1));
+	}
+	.intro {
+		height:400px;
+	}
+	#cta {
+		position:relative;
+		top:-100px;
+		background:rgba(255,255,255,1);
+		border-radius:5px;
+		color:#000;
+		margin-left:10%;
+		margin-right:10%;
+		padding:50px;
+		text-align:center;
+		display:none;
+
+	}
+	.form-text {
+		color:#fff;
+	}
+	.geocoder-wrapper {
+		text-align:center;
+	}
 </style>
 </head>
 <body>
-<!-- Load the `mapbox-gl-geocoder` plugin. -->
-<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
-<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
- 
-<div id="map"></div>
+	<div class="hero">
+		<div class="overlay">
+			<div class="container">
+				<div class="row">
+					<div class="col logo">
+						<img src="https://i0.wp.com/myclimateplan.co/wp-content/uploads/2022/10/circle-social-1.png?w=929&ssl=1">                
+					</div>
+				</div>
+				<div class="row">
+					<div class="col intro">
+						<h1>Do you live on a floodplain?</h1>
+						<p> Thousands of Canadians live on land that may be at risk of flooding. As climate impacts continue to worse, floods are likely to become more common. </p>
+						<p> <b>Use our tool to find out if you live on a floodplain and what you can do to prepare for the worseing impacts of climate change.</b></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col geocoder-wrapper">
+						<h3>Type in your address to get started:</h3>
+						<div id="geocoder" class="geocoder"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="tool">
+		<div class="container">
+			<div class="row">
+				<div class="col map-wrapper">
+					<div id="map"></div>
+					<div id="cta">
+						<h2>We can help you prepare for the worsening impacts of climate change</h2>
+						<p>My Climate Plan is a project to make sure we all know what our households face, have personal help to prepare, and get ongoing benefits to act. Together, we will build strong, climate safe communities.</p>
+						<div id="form-wrapper">
+							<h3>Sign up to learn more</h3>
+							<form>
+								<div class="mb-3">
+									<label for="exampleInputPassword1" class="form-label">Your Name</label>
+									<input type="text" class="form-control" id="name">
+								</div>
+								<div class="mb-3">
+								<label for="exampleInputEmail1" class="form-label">Email address</label>
+								<input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+								<div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+								</div>
+								<button type="submit" class="btn btn-light">Submit</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
  
 <script>
-	// TO MAKE THE MAP APPEAR YOU MUST
+    // TO MAKE THE MAP APPEAR YOU MUST
 	// ADD YOUR ACCESS TOKEN FROM
 	// https://account.mapbox.com
 	mapboxgl.accessToken = 'pk.eyJ1Ijoidm9qdGVjaHMiLCJhIjoiY2xhdmxrY3g3MDVvOTNubG56NjU5dmEyZyJ9.yKAgFJs0XBdxjEftWDfYzA';
-const map = new mapboxgl.Map({
-container: 'map',
-// Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-style: 'mapbox://styles/vojtechs/clavllvmk000h14of2h1zu2id',
-center: [-80.436707, 43.484387], // starting position [lng, lat]
-zoom: 11 // starting zoom
-});
- 
-// Add the control to the map.
-map.addControl(
-new MapboxGeocoder({
-accessToken: mapboxgl.accessToken,
-mapboxgl: mapboxgl
-})
-);
+        const map = new mapboxgl.Map({
+        container: 'map',
+        // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+        style: 'mapbox://styles/vojtechs/clavllvmk000h14of2h1zu2id',
+        center: [-80.436707, 43.484387], // starting position [lng, lat]
+        zoom: 11 // starting zoom
+    });
+    
+    // Add the control to the map.
+    const geocoder = new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl
+    });
+
+	function scrollPage(e) {
+		console.log(e.result.context[4]['text_en-US']);
+		document.getElementById('tool').style.height="75vh";
+		document.getElementById('tool').scrollIntoView();
+		document.getElementById('cta').style.display="block";
+	}
+	geocoder.on('result', e => scrollPage(e));
+    
+    document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
 </script>
  
 </body>
